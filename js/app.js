@@ -1,5 +1,6 @@
 const loadProducts = () => {
-  const url = `https://fakestoreapi.com/products`;
+  // const url = `https://fakestoreapi.com/products`;
+  const url = `http://127.0.0.1:5500/db.json`;
   fetch(url)
     .then((response) => response.json())
     .then((data) => showProducts(data));
@@ -37,7 +38,7 @@ const addToCart = (id, price) => {
 
 const getInputValue = (id) => {
   const element = document.getElementById(id).innerText;
-  const converted = parseInt(element);
+  const converted = parseFloat(element);
   return converted;
 };
 
@@ -45,13 +46,13 @@ const getInputValue = (id) => {
 const updatePrice = (id, value) => {
   const convertedOldPrice = getInputValue(id);
   const convertPrice = parseFloat(value);
-  const total = convertedOldPrice + convertPrice;
-  document.getElementById(id).innerText = Math.round(total);
+  let total = parseFloat(convertedOldPrice) + convertPrice;
+  document.getElementById(id).innerText = (total.toFixed(2));
 };
 
 // set innerText function
 const setInnerText = (id, value) => {
-  document.getElementById(id).innerText = Math.round(value);
+  document.getElementById(id).innerText = (value.toFixed(2));
 };
 
 // update delivery charge and total Tax
@@ -77,4 +78,5 @@ const updateTotal = () => {
     getInputValue("price") + getInputValue("delivery-charge") +
     getInputValue("total-tax");
   document.getElementById("total").innerText = grandTotal;
+  return;
 };
